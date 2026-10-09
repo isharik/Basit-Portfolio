@@ -245,6 +245,17 @@ html:not(.dark) .notched-project-card { background:rgba(255,255,255,.72); }.dark
   .carousel-stage > .experience-card { padding: 26px 24px 24px !important; border-radius: 24px !important; clip-path: inset(0 round 24px); }
 }
 
+/* Center every primary section frame like the hero instead of letting later density rules pull it left. */
+.section.container > .section-heading,
+.section.container > .offset-content,
+.section.container > .experience-carousel {
+  width: min(100%, 1120px);
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.section.container > .section-heading { align-self: center; }
+.section.container > .offset-content { align-self: center; }
+
 /* Smooth, low-amplitude scroll reveals: motion stays polished without a jumpy entrance. */
 @media (prefers-reduced-motion: no-preference) {
   html.js .reveal {
