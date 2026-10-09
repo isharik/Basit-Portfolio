@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { profile } from "@/lib/content";
 import { ClickSound } from "@/components/click-sound";
+import { StaticMeshGradient } from "@/components/ui/static-mesh-gradient";
 import { WelcomeScreen } from "@/components/welcome";
 
 export const metadata: Metadata = {
@@ -18,5 +19,5 @@ export const metadata: Metadata = {
 const beforePaint = `(()=>{try{const t=localStorage.getItem('theme');const d=window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',t?t==='dark':d);document.documentElement.classList.add('js')}catch(e){}})()`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: beforePaint }} /></head><body><WelcomeScreen /><ClickSound />{children}</body></html>;
+  return <html lang="en" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: beforePaint }} /></head><body><StaticMeshGradient /><WelcomeScreen /><ClickSound />{children}</body></html>;
 }
