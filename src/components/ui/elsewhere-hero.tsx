@@ -43,7 +43,7 @@ export default function ElsewhereHero({
   const [muted, setMuted] = useState(true);
   const [shown, setShown] = useState(false);
 
-  useEffect(() => { const raf = requestAnimationFrame(() => setShown(true)); return () => { cancelAnimationFrame(raf); audioRef.current?.ctx.close(); }; }, []);
+  useEffect(() => { const raf = requestAnimationFrame(() => setShown(true)); return () => { cancelAnimationFrame(raf); if (audioRef.current) { window.clearInterval(audioRef.current.timer); audioRef.current.ctx.close(); } }; }, []);
 
   function toggleSound() {
     if (!audioRef.current) {
