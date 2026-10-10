@@ -1,9 +1,8 @@
-import { ArrowDownRight, ArrowUpRight, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRight, Linkedin, Mail } from "lucide-react";
 import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import ElsewhereHero from "@/components/ui/elsewhere-hero";
 import { Reveal } from "@/components/reveal";
 import { ExperienceCarousel } from "@/components/experience-carousel";
-import { Welcome } from "@/components/welcome";
 import { Tilt } from "@/components/tilt";
 import { NotchedProjectCard } from "@/components/ui/notched-project-card";
 import { education, profile, projects, skills, socials } from "@/lib/content";
@@ -14,8 +13,7 @@ function Heading({ number, title, text }: { number: string; title: string; text?
 
 export default function Home() {
   const jsonLd = { "@context": "https://schema.org", "@type": "Person", name: profile.name, jobTitle: profile.role, address: { "@type": "PostalAddress", addressLocality: "Anantnag", addressRegion: "Jammu & Kashmir", addressCountry: "IN" }, url: "https://basitbashir.dev" };
-  return <><Navbar /><main id="main-content">
-    <section id="home" className="hero container" aria-labelledby="hero-title"><Reveal><p className="eyebrow"><Welcome /> · {profile.eyebrow}</p></Reveal><Reveal delay={60}><h1 id="hero-title">Building practical <em>AI systems</em><br />for information that matters.</h1></Reveal><Reveal delay={120}><p className="hero-summary">{profile.summary}</p></Reveal><Reveal delay={180}><div className="hero-actions"><a className="button primary" href="#contact">Get in touch <ArrowDownRight size={18} /></a><a className="button secondary" href="#projects">View work <ArrowDownRight size={18} /></a></div></Reveal><Reveal delay={230}><div className="hero-meta"><span>Based in {profile.location}</span><span>Computer Science · Batch of 2024</span></div></Reveal></section>
+  return <><ElsewhereHero headline="Building practical AI systems for information that matters." subline={profile.summary} primaryCta={{ label: "View selected work", href: "#projects" }} /><main id="main-content">
 
     <section id="about" className="section container"><Reveal><Heading number="01" title="About" /></Reveal><div className="offset-content about-layout"><Reveal><div>{profile.about.map(p => <p key={p}>{p}</p>)}</div></Reveal><Reveal delay={80}><aside className="focus-list"><p className="tiny-label">Focus areas</p>{profile.focusAreas.map((area, i) => <div key={area}><span>0{i + 1}</span>{area}</div>)}</aside></Reveal></div></section>
 
