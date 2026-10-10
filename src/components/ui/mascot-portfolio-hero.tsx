@@ -6,14 +6,23 @@ import { profile } from "@/lib/content";
 
 export default function MascotPortfolioHero() {
   const [greeting, setGreeting] = useState(0);
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const [happy, setHappy] = useState(false);
   const greetings = ["Hi there!", "Let's make something useful.", "Psst — I'm open to work.", "Thanks for stopping by :)"];
   const root = useRef<HTMLDivElement>(null);
+  const character = useRef<HTMLButtonElement>(null);
+  const target = useRef({ x: 0, y: 0 });
+  const current = useRef({ x: 0, y: 0 });
+  const happyTimer = useRef<number | undefined>(undefined);
   useEffect(() => {
-    const onMove = (event: PointerEvent) => { const rect = root.current?.getBoundingClientRect(); if (!rect) return; setPointer({ x: ((event.clientX - rect.left) / rect.width - .5) * 2, y: ((event.clientY - rect.top) / rect.height - .5) * 2 }); };
+    const onMove = (event: PointerEvent) => { const rect = root.current?.getBoundingClientRect(); if (!rect) return; target.current = { x: Math.max(-1, Math.min(1, ((event.clientX - rect.left) / rect.width - .5) * 2)), y: Math.max(-1, Math.min(1, ((event.clientY - rect.top) / rect.height - .5) * 2)) }; };
+    let raf = 0;
+    const animate = () => { current.current.x += (target.current.x - current.current.x) * .09; current.current.y += (target.current.y - current.current.y) * .09; character.current?.style.setProperty("--mx", current.current.x.toFixed(3)); character.current?.style.setProperty("--my", current.current.y.toFixed(3)); raf = requestAnimationFrame(animate); };
+    raf = requestAnimationFrame(animate);
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("pointermove", onMove); window.clearTimeout(happyTimer.current); };
   }, []);
+  const poke = () => { setGreeting(index => (index + 1) % greetings.length); setHappy(true); window.clearTimeout(happyTimer.current); happyTimer.current = window.setTimeout(() => setHappy(false), 1400); };
+  const mascotMotionCss = `.mph-character{--mx:0;--my:0;width:min(34vw,500px);height:min(54vw,610px);right:8%;transform:none!important}.mph-head{transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*10px),0) rotate(calc(var(--mx)*3deg));transition:transform .08s linear}.mph-beanie{transform:translate3d(calc(var(--mx)*18px),calc(var(--my)*6px),0)}.mph-character.is-happy .mph-head{animation:mph-happy-head .7s cubic-bezier(.3,1.7,.5,1)}.mph-character.is-happy .mph-bubble{opacity:1;transform:scale(1) rotate(-4deg)}.mph-character.is-happy .mph-eye{transform:scaleY(.72)}@keyframes mph-happy-head{0%,100%{transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*10px),0) rotate(calc(var(--mx)*3deg))}35%{transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*10px - 8px),0) rotate(-3deg)}65%{transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*10px),0) rotate(3deg)}}@media(max-width:760px){.mph-character{width:58vw;height:64vw;right:1%}.mph-head{transform:translate3d(calc(var(--mx)*9px),calc(var(--my)*7px),0)}}`;
   return <section id="home" ref={root} className="mph-root" aria-label="Basit Bashir portfolio home">
     <div className="mph-grid" aria-hidden="true" />
     <header className="mph-top"><span className="mph-index"><b>01/06</b> Data science</span><strong>{profile.name} · {profile.role.split(" · ")[0]}</strong><span className="mph-collection">{`{ selected / work }`}</span><span className="mph-reel"><i /> {profile.name.toUpperCase()}<br />{profile.location}</span><ThemeToggle className="mph-theme" /></header>
@@ -24,12 +33,12 @@ export default function MascotPortfolioHero() {
     <p className="mph-role">{profile.role}<br /><span>{profile.summary}</span></p>
     <div className="mph-seeking"><span>Open to work*</span><a href="#contact">Data / AI <b>→</b></a></div>
     <div className="mph-flower" aria-hidden="true">✿</div>
-    <button className="mph-character" onClick={() => setGreeting(index => (index + 1) % greetings.length)} aria-label="Say hi to the character" style={{ transform: `translate3d(${pointer.x * 8}px,${pointer.y * 5}px,0)` }}>
+    <button ref={character} className={`mph-character${happy ? " is-happy" : ""}`} onClick={poke} aria-label="Say hi to the character">
       <span className="mph-bubble">{greetings[greeting]}</span><span className="mph-beanie"><i>▦</i></span><span className="mph-head"><i className="mph-ear left" /><i className="mph-ear right" /><b className="mph-brow left" /><b className="mph-brow right" /><i className="mph-eye left" /><i className="mph-eye right" /><span className="mph-nose" /><span className="mph-mouth" /></span><span className="mph-body"><i /></span>
     </button>
     <ul className="mph-services">{profile.focusAreas.map(area => <li key={area}>{area}</li>)}</ul>
     <span className="mph-signature">{profile.email} · click the character · say hello</span>
-    <style>{css}</style>
+    <style>{css}</style><style>{mascotMotionCss}</style>
   </section>;
 }
 
