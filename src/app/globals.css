@@ -340,3 +340,6 @@ html.dark .contact-section {
   border-color:rgba(244,244,239,.2);
 }
 html.dark .mph-theme .icon-button { color:#f4f4ef; }
+html:not(.dark) .footer { background:#eceeed; color:#111; border-color:rgba(17,17,17,.18); }
+html:not(.dark) .footer-name, html:not(.dark) .footer p, html:not(.dark) .footer nav a { color:#111; }
+html:not(.dark) .footer nav a:hover { color:#286b4a; }
