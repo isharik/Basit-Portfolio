@@ -1,6 +1,6 @@
 import { ArrowUpRight, Linkedin, Mail } from "lucide-react";
 import { Footer } from "@/components/footer";
-import ElsewhereHero from "@/components/ui/elsewhere-hero";
+import MascotPortfolioHero from "@/components/ui/mascot-portfolio-hero";
 import { Reveal } from "@/components/reveal";
 import { ExperienceCarousel } from "@/components/experience-carousel";
 import { Tilt } from "@/components/tilt";
@@ -14,7 +14,7 @@ function Heading({ number, title, text }: { number: string; title: string; text?
 
 export default function Home() {
   const jsonLd = { "@context": "https://schema.org", "@type": "Person", name: profile.name, jobTitle: profile.role, address: { "@type": "PostalAddress", addressLocality: "Anantnag", addressRegion: "Jammu & Kashmir", addressCountry: "IN" }, url: "https://basitbashir.dev" };
-  return <><ElsewhereHero headline="Building practical AI systems for information that matters." subline={profile.summary} primaryCta={{ label: "View selected work", href: "#projects" }} /><main id="main-content">
+  return <><MascotPortfolioHero /><main id="main-content">
 
     <section id="about" className="section container"><Reveal><Heading number="01" title="About" /></Reveal><div className="offset-content about-layout"><Reveal><div>{profile.about.map(p => <p key={p}>{p}</p>)}</div></Reveal><Reveal delay={80}><aside className="focus-list"><p className="tiny-label">Focus areas</p>{profile.focusAreas.map((area, i) => <div key={area}><span>0{i + 1}</span>{area}</div>)}</aside></Reveal></div></section>
 
