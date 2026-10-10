@@ -69,6 +69,14 @@ export const projects = [
   },
 ];
 
+export const healthbotProject = {
+  title: "HealthBot: AI-Powered Multi-Turn Health Assistant & Triage Platform",
+  label: "Live",
+  description: "Architected a full-stack, conversational healthcare platform that translates free-form user symptom descriptions into actionable clinical triage through natural, multi-turn dialogue.",
+  details: "Replacing rigid checklists with an adaptive conversational pipeline, the system tracks and clarifies symptoms in context before deploying an ensemble machine learning model to predict probable conditions and categorize clinical urgency—distinguishing emergency scenarios from self-care recommendations. To streamline the care continuum, the platform integrates an OCR document pipeline that extracts medication schedules from prescription photos and PDFs to automate dosage reminders, paired with geospatial services to map nearby clinics, hospitals, and pharmacies.",
+  tags: ["Conversational AI", "ML Triage", "OCR", "Geospatial", "Healthcare"],
+};
+
 export const skills = [
   { label: "AI & machine learning", items: ["Retrieval-Augmented Generation (RAG)", "Large Language Models (LLMs)", "LangChain", "Natural Language Processing", "Scikit-Learn", "Predictive Modeling"] },
   { label: "Languages & data", items: ["Python", "C/C++", "NumPy", "Pandas", "Matplotlib", "Seaborn"] },
