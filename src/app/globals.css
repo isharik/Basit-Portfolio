@@ -343,3 +343,30 @@ html.dark .mph-theme .icon-button { color:#f4f4ef; }
 html:not(.dark) .footer { background:#eceeed; color:#111; border-color:rgba(17,17,17,.18); }
 html:not(.dark) .footer-name, html:not(.dark) .footer p, html:not(.dark) .footer nav a { color:#111; }
 html:not(.dark) .footer nav a:hover { color:#286b4a; }
+
+/* One shared drafting grid keeps the poster language continuous below the hero. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(17,17,17,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17,17,17,.045) 1px, transparent 1px);
+  background-size: 54px 54px;
+  background-position: 0 0;
+  opacity: .9;
+}
+html.dark body::after {
+  background-image:
+    linear-gradient(rgba(244,244,239,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244,244,239,.055) 1px, transparent 1px);
+  opacity: .95;
+}
+
+/* Keep each section's own grid locked to the same origin as the hero grid. */
+.section.container,
+.contact-section {
+  background-position: 0 0;
+}
