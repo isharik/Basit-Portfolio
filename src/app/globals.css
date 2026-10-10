@@ -291,3 +291,23 @@ html:not(.dark) .notched-project-card { background:rgba(255,255,255,.72); }.dark
 .carousel-stage > .experience-card.is-active:hover {
   transform: translate3d(0,-4px,0) rotateY(0deg) scale(1.005) !important;
 }
+
+/* Shared animated card treatment inspired by the supplied stacked testimonial cards. */
+.animated-card-shell {
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+.animated-card-shell > .tilt,
+.animated-card-shell > .skill-row,
+.animated-card-shell > .education-item { height: 100%; }
+.animated-card-shell .notched-project-card { height: 100%; }
+.animated-card-shell .skill-row,
+.animated-card-shell .education-item {
+  border-radius: 18px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--surface) 96%, transparent), color-mix(in srgb, var(--surface-muted) 78%, transparent));
+  box-shadow: 0 16px 34px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.animated-card-shell .tags span { transition: transform .2s var(--ease-out), border-color .2s var(--ease-out), background-color .2s var(--ease-out); }
+.animated-card-shell:hover .tags span { border-color: color-mix(in srgb, var(--accent) 58%, var(--border)); }
+@media (prefers-reduced-motion: reduce) { .animated-card-shell { transform:none !important; } }
